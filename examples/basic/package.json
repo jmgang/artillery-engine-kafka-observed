@@ -1,0 +1,11 @@
+{
+  "name": "example-basic",
+  "private": true,
+  "dependencies": {
+    "artillery-engine-kafka-observed": "0.1.0",
+    "artillery-plugin-kafka-drain": "0.1.0"
+  },
+  "devDependencies": {
+    "artillery": "2.0.34"
+  }
+}

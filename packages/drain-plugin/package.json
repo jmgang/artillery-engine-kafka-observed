@@ -1,0 +1,11 @@
+{
+  "name": "artillery-plugin-kafka-drain",
+  "version": "0.1.0",
+  "description": "Artillery plugin that keeps a run open until the consumers observed by artillery-engine-kafka-observed have caught up",
+  "license": "MIT",
+  "main": "index.cjs",
+  "files": ["index.cjs"],
+  "keywords": ["artillery", "artillery-plugin", "kafka"],
+  "repository": { "type": "git", "url": "https://github.com/jmgang/artillery-engine-kafka-observed.git", "directory": "packages/drain-plugin" },
+  "peerDependencies": { "artillery-engine-kafka-observed": "0.1.0" }
+}

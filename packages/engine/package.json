@@ -1,0 +1,24 @@
+{
+  "name": "artillery-engine-kafka-observed",
+  "version": "0.1.0",
+  "description": "Artillery engine for Kafka: produces with confirmed delivery, records every acknowledged message, and samples consumer-group lag per partition during the test",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "!dist/**/*.test.*"],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/*.test.js"
+  },
+  "keywords": ["artillery", "artillery-engine", "kafka", "load-testing", "msk", "consumer-lag"],
+  "repository": { "type": "git", "url": "https://github.com/jmgang/artillery-engine-kafka-observed.git", "directory": "packages/engine" },
+  "engines": { "node": ">=24" },
+  "dependencies": {
+    "@confluentinc/kafka-javascript": "1.10.1",
+    "aws-msk-iam-sasl-signer-js": "1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "6.0.2"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "artillery-engine-kafka-observed-repo",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/engine",
+    "packages/drain-plugin",
+    "examples/basic"
+  ],
+  "scripts": {
+    "build": "npm run build -w artillery-engine-kafka-observed",
+    "test": "npm test -w artillery-engine-kafka-observed",
+    "patch-artillery": "patch -p1 -N -r - -d node_modules/artillery < patches/artillery-2.0.34.patch || true"
+  },
+  "allowScripts": {
+    "@confluentinc/kafka-javascript@1.10.1": true
+  }
+}

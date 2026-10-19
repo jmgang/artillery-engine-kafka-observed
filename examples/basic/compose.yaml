@@ -1,0 +1,5 @@
+# A single local Kafka broker (KRaft) for trying the example: docker compose -f examples/basic/compose.yaml up -d
+services:
+  kafka:
+    image: apache/kafka:4.2.1
+    ports: ["9092:9092"]

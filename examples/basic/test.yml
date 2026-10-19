@@ -1,0 +1,27 @@
+# 30 s warm-up to 20 messages/s, then 60 s at 20/s, against a local Kafka. Run with:
+#   RUN_ID=demo-1 npx artillery run examples/basic/test.yml
+config:
+  target: kafka://local            # not used by the engine; Artillery requires a target
+  processor: ./processor.cjs
+  engines:
+    kafka-observed: {}
+  plugins:
+    kafka-drain: {}
+  phases:
+    - { name: warm-up, duration: 30, arrivalRate: 1, rampTo: 20 }
+    - { name: steady, duration: 60, arrivalRate: 20 }
+  kafkaObserved:
+    brokers: "{{ $env.KAFKA_BOOTSTRAP }}"      # e.g. localhost:9092
+    topic: example-orders
+    group: example-group                      # the consumer group whose lag is observed
+    partitions: 3                             # must equal the topic's partition count
+    runId: "{{ $env.RUN_ID }}"
+    reportDirectory: "{{ $dirname }}/out/{{ $env.RUN_ID }}"
+    observationIntervalMs: 1000
+    drainTimeoutMs: 120000
+scenarios:
+  - name: one-order
+    engine: kafka-observed
+    flow:
+      - publish:
+          factory: order

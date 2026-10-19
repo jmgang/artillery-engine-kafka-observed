@@ -1,0 +1,26 @@
+diff -ruN --exclude=node_modules a/dist/lib/platform/local/artillery-worker-local.js b/dist/lib/platform/local/artillery-worker-local.js
+--- a/dist/lib/platform/local/artillery-worker-local.js	2026-10-17 22:13:44
++++ b/dist/lib/platform/local/artillery-worker-local.js	2026-10-17 22:13:45
+@@ -121,7 +121,9 @@
+     }
+     async stop() {
+         const command = { command: 'stop' };
+-        this.worker.postMessage(command);
++        const stopped = awaitOnEE(this.events, 'exit', 60);
++    this.worker.postMessage(command);
++    await stopped;
+     }
+     onError(err) {
+         // TODO: set state, clean up
+diff -ruN --exclude=node_modules a/dist/lib/platform/local/index.js b/dist/lib/platform/local/index.js
+--- a/dist/lib/platform/local/index.js	2026-10-17 22:13:44
++++ b/dist/lib/platform/local/index.js	2026-10-17 22:13:45
+@@ -30,7 +30,7 @@
+             // Disable worker threads for Playwright-based load tests
+             const count = this.script.config.engines?.playwright
+                 ? 1
+-                : Math.max(1, os.cpus().length - 1);
++                : Math.max(1, Number(process.env.ARTILLERY_LOCAL_WORKERS) || os.cpus().length - 1);
+             this.workerScripts = divideWork(this.script, count);
+             this.count = this.workerScripts.length;
+         }
